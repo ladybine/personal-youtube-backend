@@ -15,17 +15,14 @@ exports.getComment = (req, res, next) => {
     .catch((error) => res.status(400).json({ error }));
 };
 
-exports.getOneComment = (req, res, next) => {
+exports.replyOneComment = (data, cb, cbError) => {
   modelComment
-    .findOne({ _id: req.body.id })
+    .findOne({ _id: data.commentId })
     .then((UnCommentaire) => {
-      console.log(UnCommentaire.subcomments);
-      UnCommentaire.subcomments.push({ commentaire: req.body.commentaire });
-      return UnCommentaire.save().then(() =>
-        res.status(201).json({ message: "un sous-commentaire laisser" })
-      );
+      UnCommentaire.subcomments.push({ commentaire: data.commentaire });
+      return UnCommentaire.save().then((comment) => cb(comment));
 
       /* res.status(200).json({ UnCommentaire } */
     })
-    .catch((error) => res.status(400).json({ error }));
+    .catch((error) => cbError(error));
 };

@@ -46,6 +46,19 @@ socketIO.on("connection", (socket) => {
       (error) => {}
     );
   });
+
+  socket.on("comment-reply", (data) => {
+    commentActions.replyOneComment(
+      data,
+      (data) => {
+        console.log("data-reply", data);
+        socketIO.emit("comment-reply", data);
+      },
+      (error) => {
+        console.log("data-error", error);
+      }
+    );
+  });
   socket.on("disconnect", () => {
     console.log("🔥: A user disconnected");
   });
