@@ -5,6 +5,7 @@ const app = express();
 const http = require("http").Server(app);
 const cors = require("cors");
 const routeComment = require("./Routes/routeComment");
+const routeUsers = require("./Routes/routeUsers");
 const commentActions = require("./actions/commentActions");
 const socketIO = require("socket.io")(http, {
   cors: {
@@ -14,7 +15,7 @@ const socketIO = require("socket.io")(http, {
 
 mongoose
   .connect(
-    "mongodb+srv://barbine:barbine_iduma@cluster0.omjnknn.mongodb.net/?retryWrites=true&w=majority",
+    "mongodb+srv://barbine:myladybine@cluster0.8j8yts4.mongodb.net/?retryWrites=true&w=majority",
     { useNewUrlParser: true, useUnifiedTopology: true }
   )
   .then(() => console.log("Connexion à MongoDB réussie !"))
@@ -64,4 +65,5 @@ socketIO.on("connection", (socket) => {
   });
 });
 app.use("/comments", routeComment);
+app.use("/users", routeUsers);
 http.listen("3000", console.log("le serveur est lancé"));

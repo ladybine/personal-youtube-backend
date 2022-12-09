@@ -26,3 +26,12 @@ exports.replyOneComment = (data, cb, cbError) => {
     })
     .catch((error) => cbError(error));
 };
+exports.postLikes = (data, cb, cbError) => {
+  /* modelComment */
+    /* .findOne({ _id: data.commentId })
+    .then((oneLike) => {
+      console.log("oneLike", oneLike);
+      oneLike.likes.numberLikes= data.likes += 1 },
+      oneLike.save().then((like) => cb(like))
+    }).catch((error) => cbError(error)); */
+ }

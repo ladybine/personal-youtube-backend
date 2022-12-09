@@ -13,6 +13,19 @@ exports.postComment = (req, res, next) => {
   );
 };
 
+exports.postLikes = (req, res, next) => {
+  console.log(req.body);
+  commentActions.postLikes(
+    { ...req.body },
+    (data) => {
+      res.status(200).json({ message: "un like a été ajouter" });
+    },
+    (error) => {
+      res.status(400).json({ error });
+    }
+  );
+};
+
 exports.getComment = (req, res, next) => {
   modelComment
     .find()
@@ -29,4 +42,5 @@ exports.getOneComment = (req, res, next) => {
     (error) => {
       res.status(400).json({ error });
     }
-  );};
+  );
+};
