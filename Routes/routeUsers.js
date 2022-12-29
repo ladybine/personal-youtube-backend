@@ -4,5 +4,5 @@ const route= express.Router()
 
 route.post("/", controllerUser.registerUser);
 route.get("/", controllerUser.getUser);
-
+route.put("/update/:user", controllerUser.updateUser)
 module.exports=route

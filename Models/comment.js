@@ -9,6 +9,7 @@ const deslikesSchema = mongoose.Schema({
 const subCommentSchema = mongoose.Schema(
   {
     commentaire: { type: String, require: true },
+    userId: { type: String, require: true },
     likes: [likesSchema],
     deslikes: [deslikesSchema],
   },

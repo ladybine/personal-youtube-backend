@@ -19,7 +19,7 @@ exports.replyOneComment = (data, cb, cbError) => {
   modelComment
     .findOne({ _id: data.commentId })
     .then((UnCommentaire) => {
-      UnCommentaire.subcomments.push({ commentaire: data.commentaire });
+      UnCommentaire.subcomments.push({ commentaire: data.commentaire, userId: data.userId });
       return UnCommentaire.save().then((comment) => cb(comment));
 
       /* res.status(200).json({ UnCommentaire } */
