@@ -17,8 +17,42 @@ exports.postLikes = (req, res, next) => {
   console.log(req.body);
   commentActions.postLikes(
     { ...req.body },
-    (data) => {
-      res.status(200).json({ message: "un like a été ajouter" });
+    (comment) => {
+      res.json({
+        message: "un like a été ajouter",
+        count: comment.likes.length,
+        liked: comment.likes.includes(req.body.userId),
+      });
+    },
+    (error) => {
+      res.status(400).json({ error });
+    }
+  );
+};
+exports.postDeslikes = (req, res, next) => {
+  commentActions.postDisLikes(
+    { ...req.body },
+    (comment) => {
+      res.json({
+        message: "un dislike a été ajouter",
+        count: comment.dislikes.length,
+        disliked: comment.dislikes.includes(req.body.userId),
+      });
+    },
+    (error) => {
+      res.status(400).json({ error });
+    }
+  );
+};
+exports.postSubCommentLike = (req, res, next) => {
+  commentActions.postSubCommentLike(
+    { ...req.body },
+    (comment) => {
+      res.json({
+        message: "un like de souscommentaire a été ajouter",
+        count: comment.likes.length,
+        liked: comment.likes.includes(req.body.userId),
+      });
     },
     (error) => {
       res.status(400).json({ error });
@@ -26,6 +60,21 @@ exports.postLikes = (req, res, next) => {
   );
 };
 
+exports.postSubCommentDislike=(req,res, next)=>{
+  commentActions.postSubCommentDislike(
+    { ...req.body },
+    (comment) => {
+      res.json({
+        message: "un dislike de souscommentaire a été ajouter",
+        count: comment.dislikes.length,
+        disliked: comment.dislikes.includes(req.body.userId),
+      });
+    },
+    (error) => {
+      res.status(400).json({ error });
+    }
+  );
+}
 exports.getComment = (req, res, next) => {
   modelComment
     .find()

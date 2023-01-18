@@ -21,28 +21,35 @@ exports.getUser = (req, res, next) => {
     .then((utilisateur) => res.status(200).json({ utilisateur }))
     .catch((error) => res.status(400).json({ error }));
 };
+exports.getOneUser = (req, res, next) => {
+  modeleUsers
+    .findOne({ gapi_id: req.params.user })
+    .then((utilisateur) => res.json(utilisateur))
+    .catch((error) => res.status(400).json({ error }));
+};
 
 exports.updateUser = (req, res, next) => {
-const id = req.params.id;
- 
+  const id = req.params.user;
+  console.log(id);
+
   if (!req.body) {
-    return res.status(400).send({ message: "Data to update can not be empty" });
+    return res.status(400).json({ message: "Data to update can not be empty" });
   }
   modeleUsers
     .findOneAndUpdate(
       { gapi_id: id },
       {
-        ...req.body
+        ...req.body,
       },
       { new: true, returnOriginal: false }
     )
     .then((data) => {
       if (!data) {
-        res.status(404).send({
+        res.status(404).json({
           message: `Can not update user with.May be user not found `,
         });
       } else {
-        res.status(200).send(data);
+        res.status(200).json(data);
         console.log(data);
       }
     })

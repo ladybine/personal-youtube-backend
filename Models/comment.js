@@ -1,17 +1,15 @@
 const mongoose = require("mongoose");
 
-const likesSchema = mongoose.Schema({
-  numberLikes: { type: String, require: true },
-});
-const deslikesSchema = mongoose.Schema({
-  numbersDislikes: { type: Number, require: true },
-});
 const subCommentSchema = mongoose.Schema(
   {
+    _id: {
+      type: String,
+      default: new mongoose.Types.ObjectId().toHexString(),
+    },
     commentaire: { type: String, require: true },
     userId: { type: String, require: true },
-    likes: [likesSchema],
-    deslikes: [deslikesSchema],
+    likes: [String],
+    dislikes: [String],
   },
   {
     timestamps: true,
@@ -23,8 +21,8 @@ const commentSchema = mongoose.Schema(
     commentaire: { type: String, require: true },
     videoId: { type: String, require: true },
     userId: { type: String, require: true },
-    likes: likesSchema,
-    deslikes: deslikesSchema,
+    likes: [String],
+    dislikes: [String],
     subcomments: [subCommentSchema],
   },
   {
